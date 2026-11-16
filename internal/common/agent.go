@@ -431,6 +431,24 @@ func (w *Worker) GetAppliedProfiles(cfg openuem_nats.CfgProfiles) ([]*ent.Profil
 	}
 }
 
+// wingetLibrarySource is the name the agents give to the console's private winget
+// repository (WinGetSourceName in openuem-console)
+const wingetLibrarySource = "OpenUEM"
+
+// wingetPackageSource is the winget source a task installs a package from: the console's
+// private repository for the packages uploaded there, winget's community repository
+// otherwise
+func (w *Worker) wingetPackageSource(packageID string) string {
+	isLibraryPackage, err := w.Model.IsLibraryPackage(packageID)
+	if err != nil {
+		log.Printf("[ERROR]: could not check if %s is a package of the console's winget repository, reason: %v", packageID, err)
+	}
+	if isLibraryPackage {
+		return wingetLibrarySource
+	}
+	return "winget"
+}
+
 func (w *Worker) GenerateWinGetConfig(profile *ent.Profile) (*wingetcfg.WinGetCfg, error) {
 	if len(profile.Edges.Tasks) == 0 {
 		return nil, nil
@@ -459,13 +477,13 @@ func (w *Worker) GenerateWinGetConfig(profile *ent.Profile) (*wingetcfg.WinGetCf
 
 		switch t.Type {
 		case task.TypeWingetInstall:
-			installPackage, err := wingetcfg.InstallPackage(taskID, t.PackageName, t.PackageID, "winget", t.PackageVersion, t.PackageLatest)
+			installPackage, err := wingetcfg.InstallPackage(taskID, t.PackageName, t.PackageID, w.wingetPackageSource(t.PackageID), t.PackageVersion, t.PackageLatest)
 			if err != nil {
 				return nil, err
 			}
 			cfg.AddResource(installPackage)
 		case task.TypeWingetDelete:
-			uninstallPackage, err := wingetcfg.UninstallPackage(taskID, t.PackageName, t.PackageID, "winget", t.PackageVersion, t.PackageLatest)
+			uninstallPackage, err := wingetcfg.UninstallPackage(taskID, t.PackageName, t.PackageID, w.wingetPackageSource(t.PackageID), t.PackageVersion, t.PackageLatest)
 			if err != nil {
 				return nil, err
 			}

@@ -7,12 +7,14 @@ require (
 	github.com/a-h/templ v0.3.1001
 	github.com/go-co-op/gocron/v2 v2.19.1
 	github.com/jackc/pgx/v5 v5.8.0
+	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/nats-io/nats.go v1.49.0
 	github.com/open-uem/ent v0.0.0-20260427091717-6f7d005adb1d
 	github.com/open-uem/nats v0.11.1-0.20260327113100-98373a46adcf
 	github.com/open-uem/openuem-ansible-config v0.0.0-20260327072817-2d801600b177
 	github.com/open-uem/utils v0.0.0-20260415182213-cb5d4aa4d035
 	github.com/open-uem/wingetcfg v0.0.0-20251011111407-80e823d91ea5
+	github.com/stretchr/testify v1.11.1
 	github.com/urfave/cli/v2 v2.27.7
 	github.com/wneessen/go-mail v0.7.2
 	golang.org/x/crypto v0.48.0
@@ -29,6 +31,7 @@ require (
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
 	github.com/danieljoos/wincred v1.2.3 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-openapi/inflect v0.21.5 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -41,6 +44,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/nats-io/nkeys v0.4.15 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
