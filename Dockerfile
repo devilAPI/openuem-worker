@@ -1,4 +1,5 @@
-FROM golang:1.26.1 AS build
+FROM golang:1.26 AS build
+WORKDIR /src
 COPY . ./
 RUN go build -o /bin/openuem-worker .
 
